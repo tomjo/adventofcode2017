@@ -29,17 +29,7 @@ public class PassPhraseValidator {
 
     public static boolean isValidPassPhrase2(String phrase) {
         String[] words = phrase.split(" ");
-        for (int i = 0; i < words.length; i++) {
-            for (int j = i + 1; j < words.length; j++) {
-                if (isAnagram(words[i], words[j]))
-                    return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean isAnagram(String word, String otherWord) {
-        return createHistogram(word).equals(createHistogram(otherWord));
+        return stream(words).map(PassPhraseValidator::createHistogram).distinct().count() == words.length;
     }
 
     private static Map<Character, Long> createHistogram(String word) {
