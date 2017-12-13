@@ -1,20 +1,18 @@
 package be.tomjo.advent.day5;
 
-import be.tomjo.advent.day1.Captcha;
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.IntFunction;
 
+import static be.tomjo.advent.Util.readInput;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.stream.Collectors.toList;
 
 public class JumpMaze {
 
     public static void main(String[] args) throws IOException {
-        String input = IOUtils.toString(Captcha.class.getClassLoader().getResourceAsStream("5.txt"), "UTF8");
+        String input = readInput("5.txt");
 
         List<Integer> jumpOffsets = Arrays.stream(input.split("\r\n")).mapToInt(Integer::parseInt).boxed().collect(toList());
 

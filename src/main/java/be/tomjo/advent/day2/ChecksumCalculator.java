@@ -1,20 +1,19 @@
 package be.tomjo.advent.day2;
 
-import be.tomjo.advent.day1.Captcha;
 import com.google.common.primitives.Ints;
-import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.function.ToIntFunction;
 
+import static be.tomjo.advent.Util.readInput;
 import static java.util.Arrays.stream;
 
 public class ChecksumCalculator {
 
     public static void main(String[] args) throws IOException {
         ChecksumCalculator checksumCalculator = new ChecksumCalculator();
-        String input = IOUtils.toString(Captcha.class.getClassLoader().getResourceAsStream("2.txt"), "UTF8");
+        String input = readInput("2.txt");
         int[][] spreadsheet = toSpreadsheet(input);
 
         System.out.println("Solution 2.1: " + checksumCalculator.calculateChecksum(spreadsheet, ChecksumCalculator::rowMaxMinDifference));

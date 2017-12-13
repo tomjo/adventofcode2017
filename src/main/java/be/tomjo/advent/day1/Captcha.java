@@ -1,10 +1,9 @@
 package be.tomjo.advent.day1;
 
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.util.List;
 
+import static be.tomjo.advent.Util.readInput;
 import static java.util.stream.Collectors.toList;
 
 public class Captcha {
@@ -13,7 +12,7 @@ public class Captcha {
     public static void main(String[] args) throws IOException {
         Captcha captcha = new Captcha();
 
-        String input = IOUtils.toString(Captcha.class.getClassLoader().getResourceAsStream("1.txt"), "UTF8");
+        String input = readInput("1.txt");
         List<Integer> digitList = captcha.toDigits(input);
 
         System.out.println("Solution 1.1: " + captcha.solveCaptchaWithNextDigitMatching(digitList));

@@ -1,11 +1,9 @@
 package be.tomjo.advent.day4;
 
-import be.tomjo.advent.day1.Captcha;
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.util.Map;
 
+import static be.tomjo.advent.Util.readInput;
 import static java.lang.Character.valueOf;
 import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
@@ -15,7 +13,7 @@ import static java.util.stream.Collectors.groupingBy;
 public class PassPhraseValidator {
 
     public static void main(String[] args) throws IOException {
-        String input = IOUtils.toString(Captcha.class.getClassLoader().getResourceAsStream("4.txt"), "UTF8");
+        String input = readInput("4.txt");
         String[] passPhrases = input.split("\r\n");
         System.out.println("Solution 4.1: " + stream(passPhrases).filter(PassPhraseValidator::isValidPassPhrase1).count());
         System.out.println("Solution 4.2: " + stream(passPhrases).filter(PassPhraseValidator::isValidPassPhrase1).filter(PassPhraseValidator::isValidPassPhrase2).count());
