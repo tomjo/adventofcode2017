@@ -1,27 +1,36 @@
 package be.tomjo.advent.day6;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static be.tomjo.advent.Util.readInput;
 import static java.util.Arrays.stream;
 
 public class ReallocationRoutine {
 
+    private List<MemoryBankConfiguration> configurations;
+    private MemoryBankConfiguration lastAttemptedConfiguration;
+
     public static void main(String[] args) {
         String input = readInput("6.txt");
         int[] memoryBanks = toMemoryBanks(input);
         ReallocationRoutine reallocationRoutine = new ReallocationRoutine();
-        System.out.println("Solution 6.1: "+reallocationRoutine.reallocateUntilCycleFound(memoryBanks));
+        System.out.println("Solution 6.1: "+ reallocationRoutine.reallocateUntilCycleFound(memoryBanks));
+        System.out.println("Solution 6.2: "+ reallocationRoutine.getCycleCount());
     }
 
     public int reallocateUntilCycleFound(int[] memoryBanks){
-        Set<MemoryBanks> configurations = new HashSet<>(5000);
-        while(configurations.add(new MemoryBanks(memoryBanks))){
+        configurations = new ArrayList<>(5000);
+        MemoryBankConfiguration configuration = new MemoryBankConfiguration(memoryBanks);
+        while(!configurations.contains(configuration)){
+            configurations.add(configuration);
             reallocate(memoryBanks);
+            configuration = lastAttemptedConfiguration = new MemoryBankConfiguration(memoryBanks);
         }
         return configurations.size();
+    }
+
+    public int getCycleCount(){
+        return configurations.size() - configurations.indexOf(lastAttemptedConfiguration);
     }
 
     public void reallocate(int[] memoryBanks){
@@ -51,10 +60,10 @@ public class ReallocationRoutine {
         return stream(input.replace("\r\n", "").split("\t")).mapToInt(Integer::parseInt).toArray();
     }
 
-    static class MemoryBanks {
+    static class MemoryBankConfiguration {
         private final int[] memoryBanks;
 
-        public MemoryBanks(int[] memoryBanks) {
+        public MemoryBankConfiguration(int[] memoryBanks) {
             this.memoryBanks = Arrays.copyOf(memoryBanks, memoryBanks.length);
         }
 
@@ -67,7 +76,7 @@ public class ReallocationRoutine {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            MemoryBanks that = (MemoryBanks) o;
+            MemoryBankConfiguration that = (MemoryBankConfiguration) o;
 
             return Arrays.equals(memoryBanks, that.memoryBanks);
         }

@@ -58,4 +58,14 @@ class ReallocationRoutineTest {
 
         assertThat(memoryBanks).containsExactly(2, 4, 1, 2);
     }
+
+    @Test
+    void reallocateUntilCycle() {
+        int[] memoryBanks = {0, 2, 7, 0};
+
+        int result = reallocationRoutine.reallocateUntilCycleFound(memoryBanks);
+
+        assertThat(result).isEqualTo(5);
+        assertThat(reallocationRoutine.getCycleCount()).isEqualTo(4);
+    }
 }
