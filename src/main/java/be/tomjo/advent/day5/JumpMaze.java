@@ -33,10 +33,7 @@ public class JumpMaze {
     private static int escape(List<Integer> jumpOffsets, IntFunction<Integer> offsetManipulation) {
         int nextInstruction = 0;
         int steps = 0;
-        for (; ; ) {
-            if (nextInstruction < 0 || nextInstruction >= jumpOffsets.size()) {
-                break;
-            }
+        while (nextInstruction >= 0 && nextInstruction < jumpOffsets.size()) {
             int jumpOffset = jumpOffsets.get(nextInstruction);
             jumpOffsets.set(nextInstruction, offsetManipulation.apply(jumpOffset));
             nextInstruction += jumpOffset;
