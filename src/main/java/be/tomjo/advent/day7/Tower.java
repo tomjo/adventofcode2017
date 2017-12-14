@@ -30,4 +30,19 @@ public class Tower {
     public List<String> getChildren() {
         return children;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tower tower = (Tower) o;
+
+        return name.equals(tower.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }
