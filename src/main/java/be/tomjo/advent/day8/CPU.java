@@ -16,7 +16,8 @@ public class CPU {
         List<Instruction> instructions = Arrays.stream(input.split("\r\n")).map(Instruction::instruction).collect(toList());
         CPU cpu = new CPU();
         instructions.forEach(cpu::executeInstruction);
-        System.out.println("Solution 8.1: "+cpu.getHighestRegisterValue());
+        System.out.println("Solution 8.1: "+cpu.getHighestCurrentRegisterValue());
+        System.out.println("Solution 8.2: "+cpu.getHighestEncounteredRegisterValue());
     }
 
     public CPU() {
@@ -31,7 +32,11 @@ public class CPU {
     }
 
 
-    public int getHighestRegisterValue() {
-        return registers.getHighestValue();
+    public int getHighestCurrentRegisterValue() {
+        return registers.getHighestCurrentValue();
+    }
+
+    public int getHighestEncounteredRegisterValue() {
+        return registers.getHighestEncounteredValue();
     }
 }

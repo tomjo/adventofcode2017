@@ -23,6 +23,7 @@ class CPUTest {
 
         instructions.forEach(cpu::executeInstruction);
 
-        assertThat(cpu.getHighestRegisterValue()).isEqualTo(1);
+        assertThat(cpu.getHighestCurrentRegisterValue()).isEqualTo(1);
+        assertThat(cpu.getHighestEncounteredRegisterValue()).isEqualTo(10);
     }
 }
