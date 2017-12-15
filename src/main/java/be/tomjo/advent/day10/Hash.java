@@ -45,23 +45,4 @@ public class Hash {
         }
     }
 
-    private static int modulo(int a, int b){
-        return (a % b + b) % b;
-    }
-
-    static class CircularArrayList extends ArrayList<Integer> {
-        public CircularArrayList(Collection<? extends Integer> c) {
-            super(c);
-        }
-
-        @Override
-        public Integer set(int index, Integer element) {
-            return super.set(modulo(index, size()), element);
-        }
-
-        @Override
-        public Integer get(int index) {
-            return super.get(modulo(index, size()));
-        }
-    }
 }
