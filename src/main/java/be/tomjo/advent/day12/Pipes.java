@@ -18,13 +18,6 @@ public class Pipes {
         System.out.println("Solution 12.2: " + graph.size());
     }
 
-    private static Collection<String> getConnectedComponents(Collection<Set<String>> connectedProgramSets, String id){
-        return connectedProgramSets.stream()
-                .filter(set -> set.contains(id))
-                .findAny()
-                .orElse(of(id));
-    }
-
     public static Collection<Set<String>> getConnectedProgramSets(Collection<String> inputRecords) {
         List<Set<String>> connectedProgramSets = new ArrayList<>();
         for (String inputRecord : inputRecords) {
@@ -60,6 +53,13 @@ public class Pipes {
         Set<String> set = new HashSet<>();
         sets.forEach(set::addAll);
         connectedProgramSets.add(set);
+    }
+
+    private static Collection<String> getConnectedComponents(Collection<Set<String>> connectedProgramSets, String id){
+        return connectedProgramSets.stream()
+                .filter(set -> set.contains(id))
+                .findAny()
+                .orElse(of(id));
     }
 
 }
