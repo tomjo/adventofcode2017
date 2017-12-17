@@ -1,5 +1,6 @@
 package be.tomjo.advent.day11;
 
+import be.tomjo.advent.IntHolder;
 import be.tomjo.advent.Util;
 
 import java.util.function.BinaryOperator;
@@ -38,22 +39,6 @@ public class HexGrid {
 
     private static Vector reduceDirections(String inputDirections, BinaryOperator<Vector> reduceOperation){
         return stream(inputDirections.split(",")).map(Vector::direction).reduce(IDENTITY, reduceOperation);
-    }
-
-    static class IntHolder {
-        private int value;
-
-        public IntHolder(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
     }
 
 }
