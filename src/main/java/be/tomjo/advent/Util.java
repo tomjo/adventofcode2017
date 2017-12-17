@@ -4,6 +4,11 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.Arrays.asList;
 
 public class Util {
 
@@ -19,5 +24,17 @@ public class Util {
         int[] result = Arrays.copyOf(first, first.length + second.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
+    }
+
+    public static <T> Set<T> of(Collection<T> ts, T... ts2){
+        Set<T> set = new HashSet<>(ts);
+        set.addAll(asList(ts2));
+        return set;
+    }
+
+    public static <T> Set<T> merge(Collection<Set<T>> sets) {
+        Set<T> merged = new HashSet<>();
+        sets.forEach(merged::addAll);
+        return merged;
     }
 }
