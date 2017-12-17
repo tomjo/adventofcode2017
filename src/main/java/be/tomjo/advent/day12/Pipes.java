@@ -15,6 +15,7 @@ public class Pipes {
         Collection<String> inputRecords = asList(readInput("12.txt").split("\r\n"));
         Collection<Set<String>> graph = getConnectedProgramSets(inputRecords);
         System.out.println("Solution 12.1: " + getConnectedComponents(graph, "0").size());
+        System.out.println("Solution 12.2: " + graph.size());
     }
 
     private static Collection<String> getConnectedComponents(Collection<Set<String>> connectedProgramSets, String id){
