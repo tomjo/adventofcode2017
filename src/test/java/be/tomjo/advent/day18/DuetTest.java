@@ -3,6 +3,7 @@ package be.tomjo.advent.day18;
 import org.junit.jupiter.api.Test;
 
 import static be.tomjo.advent.day18.Duet.part1;
+import static be.tomjo.advent.day18.Duet.part2;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DuetTest {
@@ -23,5 +24,19 @@ class DuetTest {
         };
 
         assertThat(part1(instructions)).isEqualTo(4);
+    }
+
+    @Test
+    void example2() {
+        String[] instructions = {
+                "snd 1",
+                "snd 2",
+                "snd p",
+                "rcv a",
+                "rcv b",
+                "rcv c",
+                "rcv d"
+        };
+        assertThat(part2(instructions)).isEqualTo(3);
     }
 }

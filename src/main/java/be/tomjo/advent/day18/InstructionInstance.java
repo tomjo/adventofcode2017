@@ -15,13 +15,13 @@ class InstructionInstance {
         this.params = params;
     }
 
-    void execute(){
+    void execute() {
         instruction.execute(instructionContext, params);
         instructionContext.afterExecution();
     }
 
     @Override
     public String toString() {
-        return name+" "+ deepToString(params);
+        return name + " " + deepToString(params);
     }
 }

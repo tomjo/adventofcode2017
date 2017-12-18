@@ -2,6 +2,7 @@ package be.tomjo.advent.day18;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 import static java.lang.Long.parseLong;
 
@@ -13,6 +14,7 @@ public class InstructionContext {
 
     private int currentInstruction;
     private boolean active;
+    private boolean blocked;
 
 
     public InstructionContext(int maxInstructionCount, ProgramPipe<Long> receiveQueue, ProgramPipe<Long> sendQueue) {
@@ -27,6 +29,18 @@ public class InstructionContext {
         if (currentInstruction < 0 || currentInstruction >= maxInstructionCount) {
             active = false;
         }
+    }
+
+    public void stop() {
+        active = false;
+    }
+
+    public void setCurrentInstruction(int currentInstruction) {
+        this.currentInstruction = currentInstruction;
+    }
+
+    public boolean isBlocked() {
+        return blocked;
     }
 
     public boolean isActive() {
@@ -70,23 +84,25 @@ public class InstructionContext {
     }
 
     public void receive(Object register) {
-        if (getRegisterValue(register) != 0) {
+        try {
             long received = receiveQueue.poll();
+            blocked = false;
             registers.put(s(register), received);
-        } else {
             currentInstruction++;
+        } catch (TimeoutException e) {
+            blocked = true;
         }
     }
 
     public void send(Object register) {
-        long value = getRegisterValue(register);
+        long value = getValueOrRegisterValue(register);
         sendQueue.add(value);
         currentInstruction++;
     }
 
     public void jgz(Object register, Object offset) {
-        if (getRegisterValue(register) > 0) {
-            currentInstruction += l(offset);
+        if (getValueOrRegisterValue(register) > 0) {
+            currentInstruction += getValueOrRegisterValue(offset);
         } else {
             currentInstruction++;
         }
@@ -98,9 +114,5 @@ public class InstructionContext {
 
     private static long l(Object param) {
         return parseLong((String) param);
-    }
-
-    public void stop() {
-        active = false;
     }
 }
