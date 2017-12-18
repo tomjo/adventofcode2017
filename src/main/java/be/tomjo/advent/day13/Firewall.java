@@ -1,7 +1,5 @@
 package be.tomjo.advent.day13;
 
-import be.tomjo.advent.IntHolder;
-
 import java.util.Map;
 
 import static be.tomjo.advent.Util.readInput;
@@ -18,9 +16,12 @@ public class Firewall {
     }
 
     public static int fewestStepsToPass(Map<Integer,Integer> firewall){
-        IntHolder delay = new IntHolder(0);
-        for(boolean result = passesWithDelay(firewall, delay.getValue()); !result; result = passesWithDelay(firewall, delay.increment()));
-        return delay.getValue();
+        int delay = 0;
+        boolean result = passesWithDelay(firewall, delay);
+        while (!result) {
+            result = passesWithDelay(firewall, delay++);
+        }
+        return delay;
     }
 
     private static boolean passesWithDelay(Map<Integer, Integer> firewall, int delay) {
