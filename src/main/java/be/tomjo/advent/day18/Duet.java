@@ -14,15 +14,23 @@ public class Duet {
     }
 
     public static long part1(String[] instructionLines) {
-        InstructionContext instructionContext = new InstructionContext(instructionLines.length);
+        ProgramPipe<Long> receiveQueue = new ProgramPipe<>();
+        InstructionContext instructionContext = new InstructionContext(instructionLines.length, receiveQueue, receiveQueue);
+
+        LastValueRecordingListener lastValueListener = new LastValueRecordingListener();
+        receiveQueue.addSendListener(lastValueListener);
+        receiveQueue.addReceiveListener(new StopExecutionOnNonZeroReceiveListener(instructionContext));
+
         List<InstructionInstance> instructions = stream(instructionLines)
                 .map(i -> InstructionFactory.createInstruction(i, instructionContext))
                 .collect(toList());
+
         while(instructionContext.isActive()){
             InstructionInstance currentInstruction = instructions.get(instructionContext.getCurrentInstruction());
             currentInstruction.execute();
         }
-        return instructionContext.getFrequency();
+
+        return lastValueListener.getLastReceivedValue();
     }
 
 

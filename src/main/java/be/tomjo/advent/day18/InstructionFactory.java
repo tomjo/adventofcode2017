@@ -12,8 +12,8 @@ public class InstructionFactory {
 
     static {
         INSTRUCTION_MAP = new HashMap<>();
-        INSTRUCTION_MAP.put("snd", (ctx,p) -> ctx.sendSound(p[0]));
-        INSTRUCTION_MAP.put("rcv", (ctx,p) -> ctx.recoverFrequency(p[0]));
+        INSTRUCTION_MAP.put("snd", (ctx,p) -> ctx.send(p[0]));
+        INSTRUCTION_MAP.put("rcv", (ctx,p) -> ctx.receive(p[0]));
 
         INSTRUCTION_MAP.put("set", (ctx,p) -> ctx.setRegister(p[0], p[1]));
         INSTRUCTION_MAP.put("add", (ctx,p) -> ctx.addRegister(p[0], p[1]));
