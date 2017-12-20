@@ -3,6 +3,8 @@ package be.tomjo.advent.day11;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Math.abs;
+
 public class Vector {
 
     public static Vector IDENTITY = vector(0, 0, 0);
@@ -51,5 +53,29 @@ public class Vector {
 
     public Vector add(Vector v) {
         return vector(x + v.x, y + v.y, z + v.z);
+    }
+
+    public int manhattanDistanceToOrigin(){
+        return abs(x) + abs(y) + abs(z);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Vector vector = (Vector) o;
+
+        if (x != vector.x) return false;
+        if (y != vector.y) return false;
+        return z == vector.z;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        result = 31 * result + z;
+        return result;
     }
 }
