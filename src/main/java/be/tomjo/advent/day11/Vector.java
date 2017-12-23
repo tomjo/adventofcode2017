@@ -55,7 +55,7 @@ public class Vector {
         return vector(x + v.x, y + v.y, z + v.z);
     }
 
-    public int manhattanDistanceToOrigin(){
+    public int manhattanDistanceToOrigin() {
         return abs(x) + abs(y) + abs(z);
     }
 
@@ -77,5 +77,14 @@ public class Vector {
         result = 31 * result + y;
         result = 31 * result + z;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
     }
 }
