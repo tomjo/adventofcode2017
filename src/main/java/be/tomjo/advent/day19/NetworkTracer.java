@@ -1,4 +1,4 @@
-package be.tomjo.advent.Day19;
+package be.tomjo.advent.day19;
 
 import java.util.stream.IntStream;
 

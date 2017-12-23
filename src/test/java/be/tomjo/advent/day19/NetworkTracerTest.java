@@ -1,8 +1,8 @@
-package be.tomjo.advent.Day19;
+package be.tomjo.advent.day19;
 
 import org.junit.jupiter.api.Test;
 
-import static be.tomjo.advent.Day19.NetworkTracer.createNetwork;
+import static be.tomjo.advent.day19.NetworkTracer.createNetwork;
 import static java.lang.String.join;
 import static org.assertj.core.api.Assertions.assertThat;
 
