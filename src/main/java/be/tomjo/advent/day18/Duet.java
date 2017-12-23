@@ -52,7 +52,7 @@ public class Duet {
         return countingValueListener.getCount();
     }
 
-    private static List<InstructionInstance> createInstructions(String[] instructionLines, InstructionContext instructionContext0) {
+    public static List<InstructionInstance> createInstructions(String[] instructionLines, InstructionContext instructionContext0) {
         return stream(instructionLines)
                 .map(i -> createInstruction(i, instructionContext0))
                 .collect(toList());

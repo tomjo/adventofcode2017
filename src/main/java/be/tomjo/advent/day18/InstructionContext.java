@@ -59,7 +59,7 @@ public class InstructionContext {
         }
     }
 
-    private long getRegisterValue(Object register) {
+    public long getRegisterValue(Object register) {
         return registers.getOrDefault(s(register), 0L);
     }
 
@@ -70,6 +70,11 @@ public class InstructionContext {
 
     public void addRegister(Object register, Object value) {
         registers.put(s(register), getRegisterValue(register) + getValueOrRegisterValue(value));
+        currentInstruction++;
+    }
+
+    public void subRegister(Object register, Object value) {
+        registers.put(s(register), getRegisterValue(register) - getValueOrRegisterValue(value));
         currentInstruction++;
     }
 
@@ -102,6 +107,14 @@ public class InstructionContext {
 
     public void jgz(Object register, Object offset) {
         if (getValueOrRegisterValue(register) > 0) {
+            currentInstruction += getValueOrRegisterValue(offset);
+        } else {
+            currentInstruction++;
+        }
+    }
+
+    public void jnz(Object register, Object offset) {
+        if (getValueOrRegisterValue(register) != 0) {
             currentInstruction += getValueOrRegisterValue(offset);
         } else {
             currentInstruction++;

@@ -2,7 +2,7 @@ package be.tomjo.advent.day18;
 
 import static java.util.Arrays.deepToString;
 
-class InstructionInstance {
+public class InstructionInstance {
     private final InstructionContext instructionContext;
     private final Instruction instruction;
     private final String name;
@@ -15,9 +15,17 @@ class InstructionInstance {
         this.params = params;
     }
 
-    void execute() {
+    public void execute() {
         instruction.execute(instructionContext, params);
         instructionContext.afterExecution();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Object[] getParams() {
+        return params;
     }
 
     @Override

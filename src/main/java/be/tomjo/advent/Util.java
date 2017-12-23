@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import static java.util.Arrays.asList;
 
@@ -49,5 +50,38 @@ public class Util {
 
     public static int mod(int a, int b){
         return ((a % b) + b) % b;
+    }
+
+    public static <T> Result<T> benchmark(Supplier<T> runnable){
+        long start = System.currentTimeMillis();
+        T result = runnable.get();
+        long end = System.currentTimeMillis();
+        return new Result(result, end-start);
+    }
+
+    static class Result<T>{
+        private final T result;
+        private final long time;
+
+        public Result(T result, long time) {
+            this.result = result;
+            this.time = time;
+        }
+
+        public long getTime() {
+            return time;
+        }
+
+        public T getResult() {
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "Result{" +
+                    "result=" + result +
+                    ", time=" + time +
+                    '}';
+        }
     }
 }

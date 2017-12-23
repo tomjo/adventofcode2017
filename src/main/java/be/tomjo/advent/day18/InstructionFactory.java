@@ -17,10 +17,12 @@ public class InstructionFactory {
 
         INSTRUCTION_MAP.put("set", (ctx,p) -> ctx.setRegister(p[0], p[1]));
         INSTRUCTION_MAP.put("add", (ctx,p) -> ctx.addRegister(p[0], p[1]));
+        INSTRUCTION_MAP.put("sub", (ctx,p) -> ctx.subRegister(p[0], p[1]));
         INSTRUCTION_MAP.put("mul", (ctx,p) -> ctx.mulRegister(p[0], p[1]));
         INSTRUCTION_MAP.put("mod", (ctx,p) -> ctx.modRegister(p[0], p[1]));
 
         INSTRUCTION_MAP.put("jgz", (ctx,p) -> ctx.jgz(p[0], p[1]));
+        INSTRUCTION_MAP.put("jnz", (ctx,p) -> ctx.jnz(p[0], p[1]));
     }
 
     public static InstructionInstance createInstruction(String instruction, InstructionContext instructionContext){

@@ -5,6 +5,7 @@ import be.tomjo.advent.Util;
 import java.util.Collection;
 import java.util.Map;
 
+import static be.tomjo.advent.Util.benchmark;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toMap;
@@ -16,17 +17,26 @@ public class Art {
 
     public static void main(String[] args) {
         String input = Util.readInput("21.txt");
-        Map<String, String> rules = createRules(input);
+        System.out.println("Solution 21.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 21.2: " + benchmark(() -> part2(input)));
+    }
 
+    private static long part1(String input){
+        Map<String, String> rules = createRules(input);
         String result = cycle(rules, START);
         for (int i = 0; i < 4; i++) {
             result = cycle(rules, result);
         }
-        System.out.println("Solution 21.1: " + countHashTags(result));
-        for (int i = 0; i < 13; i++) {
+        return countHashTags(result);
+    }
+
+    private static long part2(String input){
+        Map<String, String> rules = createRules(input);
+        String result = cycle(rules, START);
+        for (int i = 0; i < 17; i++) {
             result = cycle(rules, result);
         }
-        System.out.println("Solution 21.2: " + countHashTags(result));
+        return countHashTags(result);
     }
 
     private static long countHashTags(String result) {
