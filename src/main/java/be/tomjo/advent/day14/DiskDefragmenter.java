@@ -2,6 +2,7 @@ package be.tomjo.advent.day14;
 
 import be.tomjo.advent.day10.Hash;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import static be.tomjo.advent.Util.benchmark;
@@ -15,8 +16,18 @@ public class DiskDefragmenter {
 
     public static void main(String[] args) {
         String input = readInput("14.txt");
-        System.out.println("Solution 14.1: " + benchmark(()->part1(input)));
-        System.out.println("Solution 14.2: " + benchmark(()->part2(input)));
+        System.out.println("Solution 14.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 14.2: " + benchmark(() -> part2(input)));
+    }
+
+    public static int part1(String input) {
+        return range(0, 128)
+                .mapToObj(i -> input + "-" + i)
+                .map(Hash::knotHash)
+                .map(DiskDefragmenter::knotHashToBits)
+                .flatMapToInt(CharSequence::chars)
+                .map(i -> i - '0')
+                .sum();
     }
 
     public static int part2(String input) {
@@ -58,16 +69,6 @@ public class DiskDefragmenter {
             fillRegion(grid, x - 1, y, marker);
             fillRegion(grid, x + 1, y, marker);
         }
-    }
-
-    public static int part1(String input) {
-        return range(0, 128)
-                .mapToObj(i -> input + "-" + i)
-                .map(Hash::knotHash)
-                .map(DiskDefragmenter::knotHashToBits)
-                .flatMapToInt(CharSequence::chars)
-                .map(i -> i - '0')
-                .sum();
     }
 
     public static String knotHashToBits(String knotHash) {

@@ -8,19 +8,22 @@ public class SpinLock {
 
     public static void main(String[] args) {
         String input = readInput("17.txt");
-        System.out.println("Solution 17.1: " + benchmark(()->part1(input)));
-        System.out.println("Solution 17.2: " + benchmark(()->part2(input)));
+        System.out.println("Solution 17.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 17.2: " + benchmark(() -> part2(input)));
     }
 
     public static int part2(String input) {
-        int skipSize = parseInt(input);
+        int startSkipSize = parseInt(input);
         int currentPosition = 0;
         int valueAfterZero = 0;
-        for (int value = 1; value < 50000001; value++) {
-            currentPosition = (currentPosition + skipSize) % value + 1;
-            if(currentPosition == 1){
+        int valueSkipSize = startSkipSize;
+        for (int value = 1; value < 50000001; value += valueSkipSize) {
+            int positionSkipSize = valueSkipSize * (startSkipSize + 1) - 1;
+            currentPosition = (currentPosition + positionSkipSize) % value + 1;
+            if (currentPosition == 1) {
                 valueAfterZero = value;
             }
+            valueSkipSize = ((value - currentPosition) / startSkipSize) + 1;
         }
         return valueAfterZero;
     }
