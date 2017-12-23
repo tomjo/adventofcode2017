@@ -46,4 +46,8 @@ public class Util {
         }
         return -1;
     }
+
+    public static int mod(int a, int b){
+        return ((a % b) + b) % b;
+    }
 }
