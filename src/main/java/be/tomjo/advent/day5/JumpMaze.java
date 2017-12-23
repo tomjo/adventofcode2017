@@ -1,30 +1,35 @@
 package be.tomjo.advent.day5;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.IntFunction;
 
+import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.readInput;
-import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
 public class JumpMaze {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         String input = readInput("5.txt");
-
-        List<Integer> jumpOffsets = Arrays.stream(input.split("\r\n")).mapToInt(Integer::parseInt).boxed().collect(toList());
-
-        System.out.println("Solution 5.1: " + escapeJumpOffsetMaze(newArrayList(jumpOffsets)));
-        System.out.println("Solution 5.2: " + escapeJumpOffsetMaze2(newArrayList(jumpOffsets)));
+        System.out.println("Solution 5.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 5.2: " + benchmark(() -> part2(input)));
     }
 
-    public static int escapeJumpOffsetMaze(List<Integer> jumpOffsets) {
+    public static int part1(String input){
+        List<Integer> jumpOffsets = toJumpOffsets(input);
         return escape(jumpOffsets, jumpOffset -> jumpOffset + 1);
     }
 
-    public static int escapeJumpOffsetMaze2(List<Integer> jumpOffsets) {
+    private static List<Integer> toJumpOffsets(String input) {
+        return stream(input.split("\r\n"))
+                .mapToInt(Integer::parseInt)
+                .boxed()
+                .collect(toList());
+    }
+
+    public static int part2(String input){
+        List<Integer> jumpOffsets = toJumpOffsets(input);
         return escape(jumpOffsets, jumpOffset -> jumpOffset + (jumpOffset >= 3 ? -1 : 1));
     }
 

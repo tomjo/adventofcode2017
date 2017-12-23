@@ -2,6 +2,7 @@ package be.tomjo.advent.day6;
 
 import java.util.*;
 
+import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.readInput;
 import static java.util.Arrays.stream;
 
@@ -12,10 +13,20 @@ public class ReallocationRoutine {
 
     public static void main(String[] args) {
         String input = readInput("6.txt");
+        System.out.println("Solution 6.1: "+ benchmark(() -> part1(input)));
+        System.out.println("Solution 6.2: "+ benchmark(() -> part2(input)));
+    }
+
+    public static int part1(String input){
+        int[] memoryBanks = toMemoryBanks(input);
+        return new ReallocationRoutine().reallocateUntilCycleFound(memoryBanks);
+    }
+
+    public static int part2(String input){
         int[] memoryBanks = toMemoryBanks(input);
         ReallocationRoutine reallocationRoutine = new ReallocationRoutine();
-        System.out.println("Solution 6.1: "+ reallocationRoutine.reallocateUntilCycleFound(memoryBanks));
-        System.out.println("Solution 6.2: "+ reallocationRoutine.getCycleCount());
+        reallocationRoutine.reallocateUntilCycleFound(memoryBanks);
+        return reallocationRoutine.getCycleCount();
     }
 
     public int reallocateUntilCycleFound(int[] memoryBanks){

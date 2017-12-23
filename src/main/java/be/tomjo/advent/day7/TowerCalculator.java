@@ -1,11 +1,11 @@
 package be.tomjo.advent.day7;
 
-import be.tomjo.advent.Util;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import static be.tomjo.advent.Util.benchmark;
+import static be.tomjo.advent.Util.readInput;
 import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
@@ -14,12 +14,23 @@ import static java.util.stream.Collectors.toMap;
 public class TowerCalculator {
 
     public static void main(String[] args) {
-        String input = Util.readInput("7.txt");
+        String input = readInput("7.txt");
+        System.out.println("Solution 7.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 7.2: " + benchmark(() -> part2(input)));
+    }
+
+    public static String part1(String input) {
         String[] towerRepresentations = input.split("\r\n");
         List<Tower> towers = createTowers(towerRepresentations);
         Tower bottomTower = findBottomTower(towers);
-        System.out.println("Solution 7.1: " + bottomTower.getName());
-        System.out.println("Solution 7.2: " + calculateWeightToBalanceAllTowers(towers, bottomTower));
+        return bottomTower.getName();
+    }
+
+    public static int part2(String input) {
+        String[] towerRepresentations = input.split("\r\n");
+        List<Tower> towers = createTowers(towerRepresentations);
+        Tower bottomTower = findBottomTower(towers);
+        return calculateWeightToBalanceAllTowers(towers, bottomTower);
     }
 
     public static int calculateWeightToBalanceAllTowers(List<Tower> towers, Tower bottomTower) {

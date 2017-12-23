@@ -1,10 +1,10 @@
 package be.tomjo.advent.day8;
 
-import be.tomjo.advent.Util;
-
-import java.util.Arrays;
 import java.util.List;
 
+import static be.tomjo.advent.Util.benchmark;
+import static be.tomjo.advent.Util.readInput;
+import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
 public class CPU {
@@ -12,12 +12,27 @@ public class CPU {
     private Registers registers;
 
     public static void main(String[] args) {
-        String input = Util.readInput("8.txt");
-        List<Instruction> instructions = Arrays.stream(input.split("\r\n")).map(Instruction::instruction).collect(toList());
+        String input = readInput("8.txt");
+        System.out.println("Solution 8.1: "+benchmark(()->part1(input)));
+        System.out.println("Solution 8.2: "+benchmark(()->part2(input)));
+    }
+
+    public static int part1(String input){
+        List<Instruction> instructions = stream(input.split("\r\n"))
+                .map(Instruction::instruction)
+                .collect(toList());
         CPU cpu = new CPU();
         instructions.forEach(cpu::executeInstruction);
-        System.out.println("Solution 8.1: "+cpu.getHighestCurrentRegisterValue());
-        System.out.println("Solution 8.2: "+cpu.getHighestEncounteredRegisterValue());
+        return cpu.getHighestCurrentRegisterValue();
+    }
+
+    public static int part2(String input){
+        List<Instruction> instructions = stream(input.split("\r\n"))
+                .map(Instruction::instruction)
+                .collect(toList());
+        CPU cpu = new CPU();
+        instructions.forEach(cpu::executeInstruction);
+        return cpu.getHighestEncounteredRegisterValue();
     }
 
     public CPU() {

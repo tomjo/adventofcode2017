@@ -4,6 +4,8 @@ import be.tomjo.advent.day10.Hash;
 
 import java.util.List;
 
+import static be.tomjo.advent.Util.benchmark;
+import static be.tomjo.advent.Util.readInput;
 import static java.lang.Integer.parseInt;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
@@ -12,8 +14,9 @@ import static java.util.stream.IntStream.range;
 public class DiskDefragmenter {
 
     public static void main(String[] args) {
-        System.out.println("Solution 14.1: " + part1("ffayrhll"));
-        System.out.println("Solution 14.2: " + part2("ffayrhll"));
+        String input = readInput("14.txt");
+        System.out.println("Solution 14.1: " + benchmark(()->part1(input)));
+        System.out.println("Solution 14.2: " + benchmark(()->part2(input)));
     }
 
     public static int part2(String input) {

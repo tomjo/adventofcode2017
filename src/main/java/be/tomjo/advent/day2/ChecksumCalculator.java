@@ -2,22 +2,31 @@ package be.tomjo.advent.day2;
 
 import com.google.common.primitives.Ints;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.function.ToIntFunction;
 
+import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.readInput;
 import static java.util.Arrays.stream;
 
 public class ChecksumCalculator {
 
-    public static void main(String[] args) throws IOException {
-        ChecksumCalculator checksumCalculator = new ChecksumCalculator();
+    public static void main(String[] args) {
         String input = readInput("2.txt");
-        int[][] spreadsheet = toSpreadsheet(input);
+        System.out.println("Solution 2.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 2.2: " + benchmark(() -> part2(input)));
+    }
 
-        System.out.println("Solution 2.1: " + checksumCalculator.calculateChecksum(spreadsheet, ChecksumCalculator::rowMaxMinDifference));
-        System.out.println("Solution 2.2: " + checksumCalculator.calculateChecksum(spreadsheet, ChecksumCalculator::rowEvenDivision));
+    public static int part1(String input){
+        ChecksumCalculator checksumCalculator = new ChecksumCalculator();
+        int[][] spreadsheet = toSpreadsheet(input);
+        return checksumCalculator.calculateChecksum(spreadsheet, ChecksumCalculator::rowMaxMinDifference);
+    }
+
+    public static int part2(String input){
+        ChecksumCalculator checksumCalculator = new ChecksumCalculator();
+        int[][] spreadsheet = toSpreadsheet(input);
+        return checksumCalculator.calculateChecksum(spreadsheet, ChecksumCalculator::rowEvenDivision);
     }
 
     public int calculateChecksum(int[][] spreadsheet, ToIntFunction<int[]> rowChecksum) {

@@ -9,7 +9,7 @@ class SpinLockTest {
 
     @Test
     void example() {
-        assertThat(part1(3)).isEqualTo(638);
-        assertThat(part1(371)).isEqualTo(1311);
+        assertThat(part1("3")).isEqualTo(638);
+        assertThat(part1("371")).isEqualTo(1311);
     }
 }

@@ -1,11 +1,10 @@
 package be.tomjo.advent.day21;
 
-import be.tomjo.advent.Util;
-
 import java.util.Collection;
 import java.util.Map;
 
 import static be.tomjo.advent.Util.benchmark;
+import static be.tomjo.advent.Util.readInput;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toMap;
@@ -16,12 +15,12 @@ public class Art {
     public static final String START = ".#./..#/###";
 
     public static void main(String[] args) {
-        String input = Util.readInput("21.txt");
+        String input = readInput("21.txt");
         System.out.println("Solution 21.1: " + benchmark(() -> part1(input)));
         System.out.println("Solution 21.2: " + benchmark(() -> part2(input)));
     }
 
-    private static long part1(String input){
+    public static int part1(String input){
         Map<String, String> rules = createRules(input);
         String result = cycle(rules, START);
         for (int i = 0; i < 4; i++) {
@@ -30,7 +29,7 @@ public class Art {
         return countHashTags(result);
     }
 
-    private static long part2(String input){
+    public static int part2(String input){
         Map<String, String> rules = createRules(input);
         String result = cycle(rules, START);
         for (int i = 0; i < 17; i++) {
@@ -39,8 +38,8 @@ public class Art {
         return countHashTags(result);
     }
 
-    private static long countHashTags(String result) {
-        return result.chars().filter(c -> c == '#').count();
+    private static int countHashTags(String result) {
+        return (int) result.chars().filter(c -> c == '#').count();
     }
 
     public static Map<String, String> createRules(String input) {

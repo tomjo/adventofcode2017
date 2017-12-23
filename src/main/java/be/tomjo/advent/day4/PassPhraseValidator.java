@@ -3,6 +3,7 @@ package be.tomjo.advent.day4;
 import java.io.IOException;
 import java.util.Map;
 
+import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.readInput;
 import static java.lang.Character.valueOf;
 import static java.util.Arrays.stream;
@@ -14,11 +15,22 @@ public class PassPhraseValidator {
 
     public static void main(String[] args) throws IOException {
         String input = readInput("4.txt");
-        String[] passPhrases = input.split("\r\n");
-        System.out.println("Solution 4.1: " + stream(passPhrases).filter(PassPhraseValidator::isValidPassPhrase1).count());
-        System.out.println("Solution 4.2: " + stream(passPhrases).filter(PassPhraseValidator::isValidPassPhrase1).filter(PassPhraseValidator::isValidPassPhrase2).count());
+        System.out.println("Solution 4.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 4.2: " + benchmark(() -> part2(input)));
     }
 
+    public static int part1(String input){
+        return (int) stream(input.split("\r\n"))
+                .filter(PassPhraseValidator::isValidPassPhrase1)
+                .count();
+    }
+
+    public static int part2(String input){
+        return (int) stream(input.split("\r\n"))
+                .filter(PassPhraseValidator::isValidPassPhrase1)
+                .filter(PassPhraseValidator::isValidPassPhrase2)
+                .count();
+    }
 
     public static boolean isValidPassPhrase1(String phrase) {
         String[] words = phrase.split(" ");

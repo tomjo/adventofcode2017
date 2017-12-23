@@ -1,17 +1,25 @@
 package be.tomjo.advent.day9;
 
-import be.tomjo.advent.Util;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
+
+import static be.tomjo.advent.Util.benchmark;
+import static be.tomjo.advent.Util.readInput;
 
 public class Groups {
 
     public static void main(String[] args) {
-        String stream = Util.readInput("9.txt");
-        StreamProcessResult result = process(stream);
-        System.out.println("Solution 9.1: "+ result.getScore());
-        System.out.println("Solution 9.2: "+ result.getGarbage());
+        String input = readInput("9.txt");
+        System.out.println("Solution 9.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 9.2: " + benchmark(() -> part2(input)));
+    }
+
+    public static int part1(String input) {
+        return process(input).getScore();
+    }
+
+    public static int part2(String input) {
+        return process(input).getGarbage();
     }
 
     public static StreamProcessResult process(String stream) {
@@ -27,7 +35,7 @@ public class Groups {
             } else if (last == '<') {
                 if (c == '>') {
                     stack.pop();
-                }else{
+                } else {
                     garbage++;
                 }
             } else {

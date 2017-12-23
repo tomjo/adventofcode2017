@@ -1,11 +1,12 @@
 package be.tomjo.advent.day20;
 
-import be.tomjo.advent.Util;
 import be.tomjo.advent.day11.Vector;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static be.tomjo.advent.Util.benchmark;
+import static be.tomjo.advent.Util.readInput;
 import static java.util.Arrays.stream;
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.toSet;
@@ -14,9 +15,9 @@ import static java.util.stream.IntStream.range;
 public class Particles {
 
     public static void main(String[] args) {
-        String input = Util.readInput("20.txt");
-        System.out.println("Solution 20.1: "+part1(input));
-        System.out.println("Solution 20.2: "+part2(input));
+        String input = readInput("20.txt");
+        System.out.println("Solution 20.1: "+benchmark(()->part1(input)));
+        System.out.println("Solution 20.2: "+benchmark(()->part2(input)));
     }
 
     public static int part1(String input){

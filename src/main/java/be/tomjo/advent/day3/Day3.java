@@ -1,14 +1,26 @@
 package be.tomjo.advent.day3;
 
+import static be.tomjo.advent.Util.benchmark;
+import static be.tomjo.advent.Util.readInput;
 import static be.tomjo.advent.day3.Point.point;
 import static be.tomjo.advent.day3.SpiralMemoryPositionCalculator.calculatePosition;
 
 public class Day3 {
 
     public static void main(String[] args) {
+        String input = readInput("3.txt");
+        System.out.println("Solution 3.1: "+ benchmark(() -> part1(input)));
+        System.out.println("Solution 3.2: "+ benchmark(() -> part2(input)));
+    }
+
+    public static int part1(String input){
         Day3 day3 = new Day3();
-        System.out.println("Solution 3.1: "+ day3.calculateManhattanDistanceFromNodeIdToAccessPort(361527));
-        System.out.println("Solution 3.2: "+ day3.calculateNeighbourValueSum(361527));
+        return day3.calculateManhattanDistanceFromNodeIdToAccessPort(Integer.parseInt(input));
+    }
+
+    public static int part2(String input){
+        Day3 day3 = new Day3();
+        return day3.calculateNeighbourValueSum(Integer.parseInt(input));
     }
 
     public int calculateNeighbourValueSum(int nodeId){

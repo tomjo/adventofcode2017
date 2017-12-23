@@ -1,11 +1,12 @@
 package be.tomjo.advent.day10;
 
-import be.tomjo.advent.Util;
-
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.concat;
+import static be.tomjo.advent.Util.readInput;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.IntStream.range;
@@ -15,12 +16,19 @@ public class Hash {
     private static final int[] SUFFIX = {17, 31, 73, 47, 23};
 
     public static void main(String[] args) {
-        String input = Util.readInput("10.txt").replace("\r\n", "").trim();
+        String input = readInput("10.txt");
+        System.out.println("Solution 10.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 10.2: " + benchmark(() -> part2(input)));
+    }
 
+    public static int part1(String input) {
         int[] values = range(0, 256).toArray();
         knotHashRound(values, getLengthsFromInput1(input), 0, 0);
-        System.out.println("Solution 10.1: " + values[0] * values[1]);
-        System.out.println("Solution 10.2: " + knotHash(input));
+        return values[0] * values[1];
+    }
+
+    public static String part2(String input) {
+        return knotHash(input);
     }
 
     public static String knotHash(String input) {

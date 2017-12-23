@@ -2,6 +2,7 @@ package be.tomjo.advent.day18;
 
 import java.util.List;
 
+import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.readInput;
 import static be.tomjo.advent.day18.InstructionFactory.createInstruction;
 import static java.util.Arrays.stream;
@@ -10,12 +11,13 @@ import static java.util.stream.Collectors.toList;
 public class Duet {
 
     public static void main(String[] args) {
-        String[] instructionLines = readInput("18.txt").split("\r\n");
-        System.out.println("Solution 18.1: " + part1(instructionLines));
-        System.out.println("Solution 18.2: " + part2(instructionLines));
+        String input = readInput("18.txt");
+        System.out.println("Solution 18.1: " + benchmark(()->part1(input)));
+        System.out.println("Solution 18.2: " + benchmark(()->part2(input)));
     }
 
-    public static long part1(String[] instructionLines) {
+    public static long part1(String input) {
+        String[] instructionLines = input.split("\r\n");
         ProgramPipe<Long> receiveQueue = new ProgramPipe<>();
         InstructionContext instructionContext = new InstructionContext(instructionLines.length, receiveQueue, receiveQueue);
 
@@ -33,7 +35,8 @@ public class Duet {
         return lastValueListener.getLastReceivedValue();
     }
 
-    public static long part2(String[] instructionLines) {
+    public static long part2(String input) {
+        String[] instructionLines = input.split("\r\n");
         ProgramPipe<Long> receiveQueue0 = new ProgramPipe<>();
         ProgramPipe<Long> receiveQueue1 = new ProgramPipe<>();
         CountingValueListener countingValueListener = new CountingValueListener();

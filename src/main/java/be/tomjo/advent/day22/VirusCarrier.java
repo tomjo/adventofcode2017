@@ -1,10 +1,10 @@
 package be.tomjo.advent.day22;
 
-import be.tomjo.advent.Util;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import static be.tomjo.advent.Util.benchmark;
+import static be.tomjo.advent.Util.readInput;
 import static be.tomjo.advent.day22.Status.CLEAN;
 import static be.tomjo.advent.day22.Status.INFECTED;
 
@@ -16,9 +16,9 @@ public class VirusCarrier {
     private int infectionCount;
 
     public static void main(String[] args) {
-        String map = Util.readInput("22.txt");
-        System.out.println("Solution 22.1: " + part1(map));
-        System.out.println("Solution 22.2: " + part2(map));
+        String map = readInput("22.txt");
+        System.out.println("Solution 22.1: " + benchmark(()->part1(map)));
+        System.out.println("Solution 22.2: " + benchmark(()->part2(map)));
     }
 
     public static int part1(String map) {

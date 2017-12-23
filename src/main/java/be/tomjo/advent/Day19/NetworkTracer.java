@@ -1,9 +1,9 @@
 package be.tomjo.advent.Day19;
 
-import be.tomjo.advent.Util;
-
 import java.util.stream.IntStream;
 
+import static be.tomjo.advent.Util.benchmark;
+import static be.tomjo.advent.Util.readInput;
 import static java.lang.Character.isLetter;
 import static java.util.Arrays.stream;
 import static java.util.stream.IntStream.range;
@@ -11,15 +11,26 @@ import static java.util.stream.IntStream.range;
 public class NetworkTracer {
 
     public static void main(String[] args) {
-        String input = Util.readInput("19.txt");
+        String input = readInput("19.txt");
+        System.out.println("Solution 19.1: " + benchmark(()->part1(input)));
+        System.out.println("Solution 19.2: " + benchmark(()->part2(input)));
+    }
+
+    public static String part1(String input){
+        int[][] network = createNetwork(input);
+        NetworkTracer networkTracer = new NetworkTracer(network);
+        while(networkTracer.move());
+        return networkTracer.getEncounteredLetters();
+    }
+
+    public static int part2(String input){
         int[][] network = createNetwork(input);
         NetworkTracer networkTracer = new NetworkTracer(network);
         int steps = 0;
         while(networkTracer.move()){
             steps++;
         }
-        System.out.println("Solution 19.1: " + networkTracer.getEncounteredLetters());
-        System.out.println("Solution 19.2: " + steps);
+        return steps;
     }
 
     private int[][] network;

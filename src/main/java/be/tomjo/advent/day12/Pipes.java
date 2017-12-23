@@ -4,6 +4,7 @@ import be.tomjo.advent.Util;
 
 import java.util.*;
 
+import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.readInput;
 import static com.google.common.collect.ImmutableSet.of;
 import static java.util.Arrays.asList;
@@ -12,10 +13,19 @@ import static java.util.stream.Collectors.toList;
 public class Pipes {
 
     public static void main(String[] args) {
-        Collection<String> inputRecords = asList(readInput("12.txt").split("\r\n"));
-        Collection<Set<String>> graph = getConnectedProgramSets(inputRecords);
-        System.out.println("Solution 12.1: " + getConnectedComponents(graph, "0").size());
-        System.out.println("Solution 12.2: " + graph.size());
+        String input = readInput("12.txt");
+        System.out.println("Solution 12.1: " + benchmark(()->part1(input)));
+        System.out.println("Solution 12.2: " + benchmark(()->part2(input)));
+    }
+
+    public static int part1(String input){
+        Collection<Set<String>> graph = getConnectedProgramSets(asList(input.split("\r\n")));
+        return getConnectedComponents(graph, "0").size();
+    }
+
+    public static int part2(String input){
+        Collection<Set<String>> graph = getConnectedProgramSets(asList(input.split("\r\n")));
+        return graph.size();
     }
 
     public static Collection<Set<String>> getConnectedProgramSets(Collection<String> inputRecords) {

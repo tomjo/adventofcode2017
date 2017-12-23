@@ -2,8 +2,12 @@ package be.tomjo.advent.day18;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static be.tomjo.advent.day18.Duet.part1;
 import static be.tomjo.advent.day18.Duet.part2;
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DuetTest {
@@ -23,7 +27,7 @@ class DuetTest {
                 "jgz a -2"
         };
 
-        assertThat(part1(instructions)).isEqualTo(4);
+        assertThat(part1(stream(instructions).collect(joining("\r\n")))).isEqualTo(4);
     }
 
     @Test
@@ -37,6 +41,6 @@ class DuetTest {
                 "rcv c",
                 "rcv d"
         };
-        assertThat(part2(instructions)).isEqualTo(3);
+        assertThat(part2(stream(instructions).collect(joining("\r\n")))).isEqualTo(3);
     }
 }

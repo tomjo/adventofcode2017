@@ -1,7 +1,10 @@
 package be.tomjo.advent.day13;
 
+import be.tomjo.advent.IntHolder;
+
 import java.util.Map;
 
+import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.readInput;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.stream;
@@ -10,21 +13,34 @@ import static java.util.stream.Collectors.toMap;
 public class Firewall {
 
     public static void main(String[] args) {
-        Map<Integer, Integer> firewall = stream(readInput("13.txt").split("\r\n")).map(s -> s.split(": ")).collect(toMap(p -> parseInt(p[0]), p -> parseInt(p[1])));
-        System.out.println("Solution 13.1: "+getSeverity(firewall));
-        System.out.println("Solution 13.2: "+fewestStepsToPass(firewall));
+        String input = readInput("13.txt");
+        System.out.println("Solution 13.1: "+benchmark(()->part1(input)));
+        System.out.println("Solution 13.2: "+benchmark(()->part2(input)));
+    }
+
+    public static int part1(String input){
+        Map<Integer, Integer> firewall = createFirewall(input);
+        return getSeverity(firewall);
+    }
+
+    public static int part2(String input){
+        Map<Integer, Integer> firewall = createFirewall(input);
+        return fewestStepsToPass(firewall);
+    }
+
+    private static Map<Integer, Integer> createFirewall(String input) {
+        return stream(input.split("\r\n")).map(s -> s.split(": ")).collect(toMap(p -> parseInt(p[0]), p -> parseInt(p[1])));
     }
 
     public static int fewestStepsToPass(Map<Integer,Integer> firewall){
         int delay = 0;
-        boolean result = passesWithDelay(firewall, delay);
-        while (!result) {
-            result = passesWithDelay(firewall, delay++);
+        while(!tryPassingWithDelay(firewall, delay)){
+            delay++;
         }
         return delay;
     }
 
-    private static boolean passesWithDelay(Map<Integer, Integer> firewall, int delay) {
+    private static boolean tryPassingWithDelay(Map<Integer, Integer> firewall, int delay) {
         return firewall.entrySet().stream()
                 .map(e -> !getsCaughtInLayer(e.getKey()+delay, e.getValue()))
                 .reduce(true, (b1, b2) -> b1 && b2);

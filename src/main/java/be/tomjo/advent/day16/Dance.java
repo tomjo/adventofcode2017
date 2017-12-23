@@ -2,6 +2,7 @@ package be.tomjo.advent.day16;
 
 import java.util.List;
 
+import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.readInput;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
@@ -12,20 +13,26 @@ import static java.util.stream.IntStream.range;
 public class Dance {
 
     public static void main(String[] args) {
-        List<String> moves = asList(readInput("16.txt").split(","));
-        System.out.println("Solution 16.1: " + part1(moves, 16));
-        System.out.println("Solution 16.2: " + part2(moves, 16, 1000000000));
+        String input = readInput("16.txt");
+        System.out.println("Solution 16.1: " + benchmark(()->part1(input)));
+        System.out.println("Solution 16.2: " + benchmark(()->part2(input)));
     }
 
-    public static String part1(List<String> moves, int programCount) {
-        return part2(moves, programCount, 1);
+    public static String part1(String input) {
+        List<String> moves = asList(input.split(","));
+        return performDance(moves, 16, 1);
+    }
+
+    public static String part2(String input) {
+        List<String> moves = asList(input.split(","));
+        return performDance(moves, 16, 1000000000);
     }
 
     private static List<Character> generatePrograms(int n) {
         return range(0, n).map(i -> i + 'a').mapToObj(c -> (char) c).collect(toList());
     }
 
-    public static String part2(List<String> moves, int programCount, int iterationCount) {
+    public static String performDance(List<String> moves, int programCount, int iterationCount) {
         List<Character> programs = generatePrograms(programCount);
         String startPosition = programs.stream().map(c -> c + "").collect(joining());
         Dance dance = new Dance(programs);

@@ -3,6 +3,7 @@ package be.tomjo.advent.day1;
 import java.io.IOException;
 import java.util.List;
 
+import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.readInput;
 import static java.util.stream.Collectors.toList;
 
@@ -10,13 +11,21 @@ public class Captcha {
 
 
     public static void main(String[] args) throws IOException {
-        Captcha captcha = new Captcha();
-
         String input = readInput("1.txt");
-        List<Integer> digitList = captcha.toDigits(input);
+        System.out.println("Solution 1.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 1.2: " + benchmark(() -> part2(input)));
+    }
 
-        System.out.println("Solution 1.1: " + captcha.solveCaptchaWithNextDigitMatching(digitList));
-        System.out.println("Solution 1.2: " + captcha.solveCaptchaWithHalfWayAroundDigitMatching(digitList));
+    public static int part1(String input){
+        Captcha captcha = new Captcha();
+        List<Integer> digitList = captcha.toDigits(input);
+        return captcha.solveCaptchaWithNextDigitMatching(digitList);
+    }
+
+    public static int part2(String input){
+        Captcha captcha = new Captcha();
+        List<Integer> digitList = captcha.toDigits(input);
+        return captcha.solveCaptchaWithHalfWayAroundDigitMatching(digitList);
     }
 
     public int solveCaptchaWithNextDigitMatching(List<Integer> digitList) {

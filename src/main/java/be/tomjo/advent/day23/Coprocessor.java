@@ -14,12 +14,13 @@ import static java.util.stream.IntStream.range;
 public class Coprocessor {
 
     public static void main(String[] args) {
-        String[] instructionLines = readInput("23.txt").split("\r\n");
-        System.out.println("Solution 23.1: " + benchmark(() -> part1(instructionLines)));
-        System.out.println("Solution 23.2: " + benchmark(() -> part2(instructionLines)));
+        String input = readInput("23.txt");
+        System.out.println("Solution 23.1: " + benchmark(() -> part1(input)));
+        System.out.println("Solution 23.2: " + benchmark(() -> part2(input)));
     }
 
-    public static long part1(String[] instructionLines) {
+    public static long part1(String input) {
+        String[] instructionLines = input.split("\r\n");
         int mulCount = 0;
         InstructionContext instructionContext = new InstructionContext(instructionLines.length, null, null);
         List<InstructionInstance> instructions = createInstructions(instructionLines, instructionContext);
@@ -34,7 +35,8 @@ public class Coprocessor {
         return mulCount;
     }
 
-    public static int part2(String[] instructionLines){
+    public static int part2(String input){
+        String[] instructionLines = input.split("\r\n");
         int startValue = findStartValue(instructionLines);
         return (int) iterate(startValue, n -> n + 17).limit(1001).filter(x -> !isPrime(x)).count();
     }

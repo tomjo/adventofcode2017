@@ -17,6 +17,5 @@ class FirewallTest {
     @Test
     void fewestStepsToPassExample() {
         assertThat(fewestStepsToPass(of(0, 3, 1, 2, 4, 4, 6, 4))).isEqualTo(10);
-
     }
 }
