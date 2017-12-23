@@ -41,9 +41,13 @@ public class Firewall {
     }
 
     private static boolean tryPassingWithDelay(Map<Integer, Integer> firewall, int delay) {
-        return firewall.entrySet().stream()
-                .map(e -> !getsCaughtInLayer(e.getKey()+delay, e.getValue()))
-                .reduce(true, (b1, b2) -> b1 && b2);
+        boolean passes = true;
+        for (Map.Entry<Integer, Integer> e : firewall.entrySet()) {
+            passes = !getsCaughtInLayer(e.getKey() + delay, e.getValue());
+            if(!passes)
+                break;
+        }
+        return passes;
     }
 
     public static int getSeverity(Map<Integer,Integer> firewall){
