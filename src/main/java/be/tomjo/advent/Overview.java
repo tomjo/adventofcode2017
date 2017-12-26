@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static be.tomjo.advent.Util.benchmark;
 import static be.tomjo.advent.Util.readInput;
@@ -57,6 +58,7 @@ public class Overview {
                 .filter(Overview::hasMainMethod)
                 .map(Overview::getPartMethods)
                 .flatMap(Arrays::stream)
+                .filter(Objects::nonNull)
                 .map(m -> benchmark(() -> execute(m, input)))
                 .collect(toList());
     }
@@ -68,11 +70,18 @@ public class Overview {
     }
 
     private static Method[] getPartMethods(Class<?> mainClass) {
+        Method[] parts = new Method[2];
         try {
-            return new Method[]{mainClass.getMethod("part1", String.class), mainClass.getMethod("part2", String.class)};
+            parts[0] = mainClass.getMethod("part1", String.class);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            parts[1] = mainClass.getMethod("part2", String.class);
+        } catch (NoSuchMethodException e) {
+        }
+        return parts;
     }
 
     private static boolean hasMainMethod(Class<?> c) {
